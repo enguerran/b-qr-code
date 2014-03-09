@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Demo QR Code</title>
+    <meta charset="utf-8">
+    <script src="js/bosonic-polyfills.js"></script>
+    <script src="js/bosonic.js"></script>
+    <script src="js/b-qr-code.js"></script>
+    <link href="css/b-qr-code.css" rel="stylesheet">
+</head>
+<body>
+    <h5>Plain text encoded into a PNG QR Code</h5>
+    <b-qr-code text="Salut le monde" format="png">
+    </b-qr-code>
+
+    <h5>URL text encoded into a HTML QR Code</h5>
+    <b-qr-code text="http://www.perdu.com/" format="html">
+    </b-qr-code>
+
+    <h5>Dynamic generated PNG QR Code</h5>
+    <div id="live">
+        <input type="text" id="toQRCode" name="toQRCode" value="Change the text above">
+        <b-qr-code format='png' text="Change the text above">
+        </b-qr-code>
+    </div>
+
+    <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function(e) {
+        var input = document.querySelector('#toQRCode');
+        input.addEventListener('keyup', function() {
+            document.querySelector('#live b-qr-code').update(input.value);
+        });
+    });
+    </script>
+</body>

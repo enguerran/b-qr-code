@@ -1,0 +1,47 @@
+<element name="b-qr-code">
+    <style>
+
+    </style>
+    <template>
+        <div class="b-qr-code">
+        </div>
+    </template>
+    <script src="qr.js"></script>
+    <script>
+        ({
+            readyCallback: function() {
+                this.appendChild(this.template.content.cloneNode(true));
+                this.generate(this.getAttribute('text'));
+            },
+
+            generate: function(text) {
+                var format = this.getAttribute('format') || 'html';
+                var generatedElement;
+
+                text = text || 'Add text attribute to your b-qr-code tag';
+
+                if(format === 'png') {
+                    generatedElement = document.createElement('img');
+                    generatedElement.src = QRCode.generatePNG(text);
+                    generatedElement.title = text;
+                } else {
+                    generatedElement = QRCode.generateHTML(text);
+                }
+
+                this.querySelector('.b-qr-code').appendChild(generatedElement);
+            },
+
+            update: function(text) {
+                this.clear();
+                this.generate(text);
+            },
+
+            clear: function() {
+                var div = this.querySelector('.b-qr-code');
+                for(var i = 0 ; i < div.children.length ; i++) {
+                    div.children[i].parentNode.removeChild(div.children[i]);
+                }
+            }
+        });
+    </script>
+</element>
